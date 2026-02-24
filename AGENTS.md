@@ -2,26 +2,28 @@
 
 ## Cursor Cloud specific instructions
 
-This is a Java/Maven CLI application (Credit Card Fraud Detector). No external services, databases, or Docker are required.
+This is a Python CLI application (Credit Card Fraud Detector). No external services, databases, or Docker are required.
 
 ### Prerequisites
 
-- **JDK 8+** (OpenJDK 21 is pre-installed in the cloud environment)
-- **Maven 3.x** (installed via `sudo apt-get install -y maven`)
+- **Python 3.9+** (Python 3.12 is pre-installed in the cloud environment)
+- **pip** for dependency management
 
 ### Common commands
 
-See `README.md` for project overview. Key commands:
+See `README.md` for full details. Key commands:
 
 | Action | Command |
 |--------|---------|
-| Run tests | `mvn clean test` |
-| Build JAR | `mvn clean package` |
-| Run app | `java -cp target/card-1.0-SNAPSHOT.jar au.com.zlu.App <file_path> <threshold>` |
+| Install deps | `pip install -r requirements.txt` |
+| Run tests | `pytest -v` |
+| Lint | `ruff check .` |
+| Format check | `ruff format --check .` |
+| Run app | `python3 -m fraud_detector <file_path> <threshold>` |
 
 ### Notes
 
-- The `pom.xml` declares source/target 1.7 in properties but the compiler plugin overrides to Java 8. JDK 21 handles this via `--release`/cross-compilation.
-- The last test in `AppTest.java` (large transaction test) is commented out intentionally — it causes `OutOfMemoryError` by design.
-- There is no linter configured beyond the Maven compiler checks. `mvn clean test` is the primary validation command.
+- Use `python3` not `python` — the cloud environment may not have a `python` symlink.
 - The sample input file is `transactions_file` at the repository root.
+- Test resource files live in `tests/resources/`.
+- `ruff` is used for both linting and formatting (configured in `pyproject.toml`).

@@ -1,26 +1,59 @@
 # Credit Card Fraud Detector
 
-This project is build in maven so just use normal maven command to build and test
+A CLI tool that reads credit card transactions from a file and flags cards whose total spending on any single day meets or exceeds a configurable price threshold.
 
-### Prerequisites
+## Prerequisites
 
-Java
+- Python 3.9+
 
-Maven
+## Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Get started
 
-This application takes two input values: 
-1. transactions file path
-2. price threshold
+```bash
+python -m fraud_detector <transactions_file> <price_threshold>
+```
 
-## What the application support
+### Example
 
-Currently this application only support limited amount of transaction like definate below 2^30 transaction. 
-Because it will cause java.lang.OutOfMemoryError: Java heap space due to the way of implementation. 
-And the last test case in AppTest file is regarding this. 
+```bash
+# Detect cards with daily spend >= $10
+python -m fraud_detector transactions_file 10.00
 
-### Improvements
+# Detect cards with daily spend >= $50
+python -m fraud_detector transactions_file 50.00
+```
 
-1. redesign the system to support 2^30 transactions, eg: involve Threads
-2. use distributed system to handle this maybe try hadoop to handle big data
+### Input format
+
+Each line in the transactions file:
+
+```
+<hashed_card_number>, <ISO-8601 datetime>, <amount>
+```
+
+Example:
+```
+10d7ce2f43e35fa57d1bbf8b1e2, 2020-05-11T14:15:54, 10.00
+```
+
+## Development
+
+```bash
+# Run tests
+pytest
+
+# Lint
+ruff check .
+
+# Format check
+ruff format --check .
+```
+
+## Limitations
+
+Currently loads all transactions into memory. For datasets exceeding available RAM, a streaming or distributed approach (e.g. chunked processing, Spark) would be needed.
