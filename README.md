@@ -8,6 +8,18 @@ Java
 
 Maven
 
+Python 3 and `pip` (optional today; used by Cursor/cloud setup and future Legal RAG tooling)
+
+### Cursor / cloud environment
+
+The hosted environment may run `pip install -r requirements.txt`. This repo includes a root `requirements.txt` so that step does not fail.
+
+For a full sync (Python deps + Maven tests), set the **update script** to:
+
+```bash
+bash scripts/cloud-setup.sh
+```
+
 ## Get started
 
 This application takes two input values: 
