@@ -1,3 +1,2 @@
-# Python toolchain for future Legal RAG phases (see WI-000001 specs).
-# Cursor/cloud setup runs: pip install -r requirements.txt
-# Add packages here as the Python scaffold lands (Phase 2).
+# Editable install with dev tools (ruff, pytest, mypy). See pyproject.toml.
+-e .[dev]
