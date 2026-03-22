@@ -20,6 +20,12 @@ For a full sync (Python deps + Maven tests), set the **update script** to:
 bash scripts/cloud-setup.sh
 ```
 
+To **show project progress** in a browser (e.g. for screen recording instead of an empty desktop), run:
+
+```bash
+bash scripts/open-progress-dashboard.sh
+```
+
 ## Get started
 
 This application takes two input values: 
