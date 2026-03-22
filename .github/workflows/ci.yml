@@ -20,8 +20,5 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Python dependencies
-        run: pip install -r requirements.txt
-
-      - name: Maven test
-        run: mvn -B test
+      - name: Cloud setup (pip + Maven test)
+        run: bash scripts/cloud-setup.sh
