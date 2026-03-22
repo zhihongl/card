@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WI-000001 — Legal RAG — Progress</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --ok: #22c55e;
+      --partial: #eab308;
+      --pending: #64748b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(160deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 2rem 1.5rem 3rem;
+    }
+    .wrap { max-width: 920px; margin: 0 auto; }
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    h1 { font-size: 1.65rem; font-weight: 700; margin: 0 0 0.35rem; letter-spacing: -0.02em; }
+    .sub { color: var(--muted); font-size: 0.95rem; }
+    .badge {
+      display: inline-block;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      margin-top: 0.75rem;
+      color: var(--muted);
+    }
+    h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 2rem 0 0.75rem;
+    }
+    .grid { display: grid; gap: 1rem; }
+    @media (min-width: 640px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem;
+    }
+    .card h3 { margin: 0 0 0.5rem; font-size: 1.05rem; }
+    ul { margin: 0; padding-left: 1.2rem; color: var(--muted); font-size: 0.92rem; }
+    li { margin: 0.35rem 0; }
+    .phase {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .phase:last-child { border-bottom: none; }
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      margin-top: 0.45rem; flex-shrink: 0;
+    }
+    .dot.done { background: var(--ok); box-shadow: 0 0 12px rgba(34,197,94,0.45); }
+    .dot.partial { background: var(--partial); }
+    .dot.todo { background: var(--pending); }
+    .phase strong { color: var(--text); }
+    code {
+      font-family: ui-monospace, monospace;
+      font-size: 0.85em;
+      background: #0f172a;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: #e2e8f0;
+    }
+    .cmd {
+      display: block;
+      margin-top: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: #0f172a;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      color: #86efac;
+      font-size: 0.88rem;
+      overflow-x: auto;
+    }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Victoria Supreme Court Legal RAG</h1>
+      <p class="sub">Work item <strong>WI-000001</strong> — hybrid retrieval (OpenSearch + pgvector), OpenAI, ~50 judgments MVP</p>
+      <span class="badge">Branch: j00/legal-rag-requirements-c83b · Python RAG scaffold shipped · run ingest + serve locally</span>
+    </header>
+
+    <h2>Executive snapshot</h2>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Done</h3>
+        <ul>
+          <li>Phase 1 specs + <code>runbook.md</code></li>
+          <li>Phases 2–7 scaffold: <code>legal_rag/</code> (ingest, chunk, RRF, FastAPI, indexing hooks)</li>
+          <li><code>python -m legal_rag ingest</code> → up to 50 official URLs; <code>serve</code> → API</li>
+          <li><code>infra/docker-compose.yml</code> — Postgres/pgvector + OpenSearch</li>
+          <li>CI: <code>ruff</code>, <code>pytest</code>, <code>mvn test</code> via <code>cloud-setup.sh</code></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Verify locally</h3>
+        <p class="sub" style="margin:0 0 0.5rem;">Last green run: Maven 13 tests, <code>cloud-setup: ok</code></p>
+        <span class="cmd">bash scripts/cloud-setup.sh</span>
+      </div>
+    </div>
+
+    <h2>Phase roadmap</h2>
+    <div class="card">
+      <div class="phase">
+        <span class="dot done"></span>
+        <div><strong>Phase 1 — Requirements</strong><br /><span class="sub">Full WI-000001 document set in repo</span></div>
+      </div>
+      <div class="phase">
+        <span class="dot done"></span>
+        <div><strong>Phase 2 — Bootstrap</strong><br /><span class="sub"><code>pyproject.toml</code>, <code>legal_rag</code>, <code>tests</code>, ruff/pytest in CI</span></div>
+      </div>
+      <div class="phase">
+        <span class="dot partial"></span>
+        <div><strong>Phases 3–7 — First cut</strong><br /><span class="sub">Ingest + chunk + index sync + API live; tune eval, auth on debug, prod hardening next</span></div>
+      </div>
+    </div>
+
+    <h2>Key paths</h2>
+    <div class="card">
+      <ul style="list-style: none; padding-left: 0;">
+        <li><code>AllocationsManagement.Content/specs/active/WI-000001/</code></li>
+        <li><code>.github/workflows/ci.yml</code></li>
+        <li><code>scripts/cloud-setup.sh</code></li>
+      </ul>
+    </div>
+
+    <footer>
+      Dashboard for demos and screen recordings — open this file in Chrome for a non-empty capture surface.
+      Updated: 2026-03-22 (phases 2–7 scaffold)
+    </footer>
+  </div>
+</body>
+</html>

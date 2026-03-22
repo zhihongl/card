@@ -1,0 +1,2 @@
+# Editable install with dev tools (ruff, pytest, mypy). See pyproject.toml.
+-e .[dev]
