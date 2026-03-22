@@ -105,7 +105,7 @@
     <header>
       <h1>Victoria Supreme Court Legal RAG</h1>
       <p class="sub">Work item <strong>WI-000001</strong> — hybrid retrieval (OpenSearch + pgvector), OpenAI, ~50 judgments MVP</p>
-      <span class="badge">Branch: j00/legal-rag-requirements-c83b · Specs + tooling shipped · RAG app code not started</span>
+      <span class="badge">Branch: j00/legal-rag-requirements-c83b · Python RAG scaffold shipped · run ingest + serve locally</span>
     </header>
 
     <h2>Executive snapshot</h2>
@@ -113,11 +113,11 @@
       <div class="card">
         <h3>Done</h3>
         <ul>
-          <li>Phase 1 specs: <code>requirements.md</code>, <code>spec.md</code>, <code>plan.md</code>, <code>tasks.md</code></li>
-          <li>Root <code>requirements.txt</code> (fixes cloud <code>pip install -r</code>)</li>
-          <li><code>scripts/cloud-setup.sh</code> — pip + <code>mvn test</code></li>
-          <li>GitHub Actions CI runs <code>bash scripts/cloud-setup.sh</code></li>
-          <li>README: Cursor/cloud setup instructions</li>
+          <li>Phase 1 specs + <code>runbook.md</code></li>
+          <li>Phases 2–7 scaffold: <code>legal_rag/</code> (ingest, chunk, RRF, FastAPI, indexing hooks)</li>
+          <li><code>python -m legal_rag ingest</code> → up to 50 official URLs; <code>serve</code> → API</li>
+          <li><code>infra/docker-compose.yml</code> — Postgres/pgvector + OpenSearch</li>
+          <li>CI: <code>ruff</code>, <code>pytest</code>, <code>mvn test</code> via <code>cloud-setup.sh</code></li>
         </ul>
       </div>
       <div class="card">
@@ -134,12 +134,12 @@
         <div><strong>Phase 1 — Requirements</strong><br /><span class="sub">Full WI-000001 document set in repo</span></div>
       </div>
       <div class="phase">
-        <span class="dot partial"></span>
-        <div><strong>Phase 2 — Bootstrap</strong><br /><span class="sub"><code>scripts/</code>, CI, Python stub file; full RAG <code>src/</code> layout still to add</span></div>
+        <span class="dot done"></span>
+        <div><strong>Phase 2 — Bootstrap</strong><br /><span class="sub"><code>pyproject.toml</code>, <code>legal_rag</code>, <code>tests</code>, ruff/pytest in CI</span></div>
       </div>
       <div class="phase">
-        <span class="dot todo"></span>
-        <div><strong>Phases 3–7</strong><br /><span class="sub">Ingestion, chunking, hybrid index, RAG API, ops</span></div>
+        <span class="dot partial"></span>
+        <div><strong>Phases 3–7 — First cut</strong><br /><span class="sub">Ingest + chunk + index sync + API live; tune eval, auth on debug, prod hardening next</span></div>
       </div>
     </div>
 
@@ -154,7 +154,7 @@
 
     <footer>
       Dashboard for demos and screen recordings — open this file in Chrome for a non-empty capture surface.
-      Updated: 2026-03-22
+      Updated: 2026-03-22 (phases 2–7 scaffold)
     </footer>
   </div>
 </body>

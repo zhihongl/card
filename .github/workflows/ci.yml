@@ -20,5 +20,5 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Cloud setup (pip + Maven test)
+      - name: Cloud setup (pip, ruff, pytest, Maven)
         run: bash scripts/cloud-setup.sh

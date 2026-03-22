@@ -11,5 +11,7 @@ else
   echo "cloud-setup: warning: requirements.txt missing, skipping pip" >&2
 fi
 
+ruff check legal_rag tests
+pytest -q
 mvn -B test
 echo "cloud-setup: ok"

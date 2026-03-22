@@ -1,5 +1,7 @@
 # Credit Card Fraud Detector
 
+This repository also contains **Legal RAG (WI-000001)** for Victoria Supreme Court judgments: see `legal_rag/`, `tests/`, `infra/docker-compose.yml`, and `AllocationsManagement.Content/specs/active/WI-000001/runbook.md`.
+
 This project is build in maven so just use normal maven command to build and test
 
 ### Prerequisites
